@@ -1,0 +1,6 @@
+.next
+.storybook
+coverage
+node_modules
+public
+*.md

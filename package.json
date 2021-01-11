@@ -1,0 +1,85 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "test": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint-js": "eslint './src/**/*.{js, jsx}'",
+    "lint-js:fix": "npm run lint-js -- --fix",
+    "lint-scss": "stylelint './src/**/*.scss'",
+    "lint-scss:fix": "npm run lint-scss -- --fix",
+    "format": "prettier --check './src/'",
+    "format:fix": "npm run format -- --write"
+  },
+  "dependencies": {
+    "@storybook/preset-scss": "^1.0.3",
+    "classnames": "^2.2.6",
+    "css-loader": "^5.0.1",
+    "date-fns": "^2.11.1",
+    "gray-matter": "^4.0.2",
+    "identity-obj-proxy": "^3.0.0",
+    "next": "^10.0.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-markdown": "^5.0.3",
+    "remark": "^12.0.0",
+    "remark-html": "^12.0.0",
+    "sass": "^1.32.0",
+    "sass-loader": "^10.1.0",
+    "storybook-addon-next-router": "^2.0.3",
+    "style-loader": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@storybook/addon-actions": "^6.1.11",
+    "@storybook/addon-essentials": "^6.1.11",
+    "@storybook/addon-links": "^6.1.11",
+    "@storybook/react": "^6.1.11",
+    "@testing-library/dom": "^7.29.2",
+    "@testing-library/jest-dom": "^5.11.8",
+    "@testing-library/react": "^11.2.2",
+    "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.2",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-react": "^7.22.0",
+    "jest": "^26.6.3",
+    "prettier": "2.2.1",
+    "stylelint": "^13.8.0",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-scss": "^3.18.0"
+  },
+  "browserslist": [
+    "last 2 Chrome major versions",
+    "last 2 Firefox major versions",
+    "last 2 Safari major versions",
+    "last 2 Edge major versions",
+    "last 2 ChromeAndroid major versions",
+    "last 2 FirefoxAndroid major versions",
+    "last 2 iOS major versions",
+    "not IE > 0"
+  ],
+  "jest": {
+    "setupFilesAfterEnv": [
+      "../setup-tests.js"
+    ],
+    "rootDir": "./src/",
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/*.stories.{js,jsx}",
+      "!**/pages/**",
+      "!**/posts/**"
+    ],
+    "coverageDirectory": "../coverage/",
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|scss|less)$": "identity-obj-proxy"
+    }
+  }
+}
