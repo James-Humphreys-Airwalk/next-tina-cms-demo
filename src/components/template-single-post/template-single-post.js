@@ -4,7 +4,6 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { FormattedDate } from "../formatted-date";
 import { Header } from "../header";
-import "./template-single-post.module.scss";
 
 const TemplateSinglePost = ({
   profileImageUrl,
