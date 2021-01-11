@@ -1,43 +1,53 @@
 /* eslint react/prop-types: 0 */
 import React from "react";
 import Head from "next/head";
+import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import { FormattedDate } from "../components/formatted-date";
+import { Header } from "../components/header";
 import { TemplateBase } from "../components/template-base";
-import { TemplateHome } from "../components/template-home";
-import { getSortedPostsData } from "../lib/posts";
+import { getPostPageData, getSortedPostsData } from "../lib/posts";
 
-export default function Home({ allPostsData, siteTitle, introductionText }) {
+export default function Home({ allPostsData, homePageData }) {
   return (
     <TemplateBase>
       <Head>
-        <title>{siteTitle}</title>
+        <title>{homePageData.title}</title>
       </Head>
-      <TemplateHome
-        profileImageUrl="/images/profile.jpg"
-        profileImageAltText="Profile image alt text description"
-        headerTitle={siteTitle}
-        {...{ introductionText, allPostsData }}
-      />
+      <div className="home container">
+        <Header size="large" />
+        <section className="headingMd">
+          <ReactMarkdown>{homePageData.rawMarkdownBody}</ReactMarkdown>
+        </section>
+        <section className="headingMd padding1px">
+          <h2 className="headingLg">Blog</h2>
+          <ul className="list">
+            {allPostsData.map(({ id, date, title }) => (
+              <li className="listItem" key={id}>
+                <Link href={`/posts/${id}`}>
+                  <a>{title}</a>
+                </Link>
+                <br />
+                <small className="lightText">
+                  <FormattedDate dateString={date} />
+                </small>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
     </TemplateBase>
   );
 }
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
-
-  const introductionText = `This is a simple boilerpate for Next.js powered websites using StoryBook for component driven development.
-
-For more information on Next.js, check out the official [docs](https://nextjs.org/docs/getting-started)
-
-For more information on StoryBook, check out the official [docs](https://storybook.js.org/docs/react/get-started/introduction)
-`;
-
-  const siteTitle = "Test site title";
+  const homePageData = await getPostPageData("home", "page");
 
   return {
     props: {
       allPostsData,
-      siteTitle,
-      introductionText,
+      homePageData,
     },
   };
 }

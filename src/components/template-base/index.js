@@ -1,1 +1,1 @@
-export { TemplateBase, siteTitle } from "./template-base";
+export { TemplateBase } from "./template-base";

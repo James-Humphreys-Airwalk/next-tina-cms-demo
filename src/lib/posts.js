@@ -4,7 +4,8 @@ import matter from "gray-matter";
 import remark from "remark";
 import html from "remark-html";
 
-const postsDirectory = path.join(process.cwd(), "src/posts");
+const postsDirectory = path.join(process.cwd(), "src/content/posts");
+const pagesDirectory = path.join(process.cwd(), "src/content/pages");
 
 export function getSortedPostsData() {
   // Get file names under /posts
@@ -47,8 +48,20 @@ export function getAllPostIds() {
   });
 }
 
-export async function getPostData(id) {
-  const fullPath = path.join(postsDirectory, `${id}.md`);
+export async function getPostPageData(id, type = "post") {
+  let directory;
+
+  if (type === "page") {
+    directory = pagesDirectory;
+  } else if (type === "post") {
+    directory = postsDirectory;
+  } else {
+    throw new Error(
+      "function getPostPageData expects argument 'type' to be either 'post' or 'page'"
+    );
+  }
+
+  const fullPath = path.join(directory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
   // Use gray-matter to parse the post metadata section

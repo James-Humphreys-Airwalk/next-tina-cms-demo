@@ -1,38 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
+import siteConfig from "../../content/site-config.json";
 
-const Header = ({
-  profileImageUrl,
-  profileImageAltText,
-  headerTitle,
-  size = "small",
-}) => {
+const Header = ({ size = "small" }) => {
   return (
     <header className={cn("header", `header__${size}`)}>
       <img
-        src={profileImageUrl}
+        src={siteConfig.profileImageUrl}
         className="header--image"
-        alt={profileImageAltText}
+        alt={siteConfig.profileImageAltText}
       />
-      <h2 className="header--title">{headerTitle}</h2>
+      <h2 className="header--title">{siteConfig.siteTitle}</h2>
     </header>
   );
 };
 
 Header.propTypes = {
-  /**
-   The url of the profile image
-  */
-  profileImageUrl: PropTypes.string,
-  /**
-   The alternative text for the profile image
-  */
-  profileImageAltText: PropTypes.string,
-  /**
-   The main title for the header
-  */
-  headerTitle: PropTypes.string,
   /**
    The size styling of the header
   */
