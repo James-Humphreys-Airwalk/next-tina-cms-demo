@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cn from "classnames";
-import styles from "./header.module.scss";
 
 const Header = ({
   profileImageUrl,
@@ -10,13 +9,13 @@ const Header = ({
   size = "small",
 }) => {
   return (
-    <header className={cn(styles.header, styles[`header__${size}`])}>
+    <header className={cn("header", `header__${size}`)}>
       <img
         src={profileImageUrl}
-        className={styles["header--image"]}
+        className="header--image"
         alt={profileImageAltText}
       />
-      <h2 className={styles["header--title"]}>{headerTitle}</h2>
+      <h2 className="header--title">{headerTitle}</h2>
     </header>
   );
 };
