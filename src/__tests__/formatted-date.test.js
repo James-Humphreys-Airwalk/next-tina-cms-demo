@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { FormattedDate } from "./formatted-date";
+import { FormattedDate } from "../components/formatted-date/formatted-date";
 
 describe("FormattedDate - with valid date string", () => {
   it("should render the correct date from a given date string", () => {
