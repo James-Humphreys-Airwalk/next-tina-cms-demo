@@ -39,6 +39,10 @@
   padding-top: 1px;
 }
 
+.margin1px {
+  margin-top: 1rem;
+}
+
 .list {
   list-style: none;
   padding: 0;
@@ -51,4 +55,8 @@
 
 .lightText {
   color: #666;
+}
+
+.inlineBlock {
+  display: inline-block;
 }

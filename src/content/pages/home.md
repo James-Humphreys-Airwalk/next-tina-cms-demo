@@ -1,6 +1,8 @@
 ---
 title: "Home"
 date: "2020-01-01"
+draft: false
+blogPostListTitle: "All Posts"
 ---
 This is a simple boilerpate for Next.js powered websites using StoryBook for component driven development.
 

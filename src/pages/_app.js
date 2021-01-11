@@ -1,26 +1,15 @@
 /* eslint react/prop-types: 0 */
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import { TinaProvider, TinaCMS } from "tinacms";
 import "../styles/index.scss";
 
 export default function App({ Component, pageProps }) {
-  const cms = new TinaCMS({
-    enabled: true,
-    sidebar: true,
-    toolbar: true,
-  });
-
-  useEffect(() => {
-    import("react-tinacms-date").then(({ DateFieldPlugin }) => {
-      cms.plugins.add(DateFieldPlugin);
+  const cms = useMemo(() => {
+    return new TinaCMS({
+      enabled: true,
+      sidebar: true,
+      toolbar: true,
     });
-
-    import("react-tinacms-editor").then(
-      ({ MarkdownFieldPlugin, HtmlFieldPlugin }) => {
-        cms.plugins.add(MarkdownFieldPlugin);
-        cms.plugins.add(HtmlFieldPlugin);
-      }
-    );
   }, []);
 
   return (

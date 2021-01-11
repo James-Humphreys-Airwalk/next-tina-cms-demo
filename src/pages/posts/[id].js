@@ -1,9 +1,9 @@
 /* eslint react/prop-types: 0 */
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
-import { useForm, usePlugin } from "tinacms";
+import { useForm, usePlugin, useCMS } from "tinacms";
 import { InlineForm } from "react-tinacms-inline";
 import { InlineWysiwyg } from "react-tinacms-editor";
 import { FormattedDate } from "../../components/formatted-date";
@@ -12,6 +12,8 @@ import { TemplateBase } from "../../components/template-base";
 import { getAllPostIds, getPostPageData } from "../../lib/posts";
 
 export default function Post({ postData: intitalPostData }) {
+  const cms = useCMS();
+
   const formConfig = {
     id: intitalPostData.id,
     label: "Edit Post",
@@ -28,6 +30,11 @@ export default function Post({ postData: intitalPostData }) {
         dateFormat: "YYYY-MM-DD",
         timeFormat: false,
       },
+      {
+        name: "draft",
+        label: "Draft",
+        component: "toggle",
+      },
     ],
     initialValues: intitalPostData,
     onSubmit: async (changes) => {
@@ -38,32 +45,43 @@ export default function Post({ postData: intitalPostData }) {
   const [modifiedValues, form] = useForm(formConfig);
   usePlugin(form);
 
+  useEffect(() => {
+    import("react-tinacms-date").then(({ DateFieldPlugin }) => {
+      cms.plugins.add(DateFieldPlugin);
+    });
+
+    import("react-tinacms-editor").then(
+      ({ MarkdownFieldPlugin, HtmlFieldPlugin }) => {
+        cms.plugins.add(MarkdownFieldPlugin);
+        cms.plugins.add(HtmlFieldPlugin);
+      }
+    );
+  }, []);
+
   return (
     <InlineForm form={form}>
       <TemplateBase>
         <Head>
           <title>{modifiedValues.title}</title>
         </Head>
-        <div className="single-post container">
-          <Header size="small" />
-          <article>
-            <div>
-              <h1 className="headingXl">{modifiedValues.title}</h1>
-              <span className="lightText">
-                <FormattedDate dateString={modifiedValues.date} />
-              </span>
-            </div>
-            <div>
-              <InlineWysiwyg name="rawMarkdownBody" format="markdown">
-                <ReactMarkdown>{modifiedValues.rawMarkdownBody}</ReactMarkdown>
-              </InlineWysiwyg>
-            </div>
-          </article>
-          <div className="back-link">
-            <Link href="/">
-              <a>Back to home</a>
-            </Link>
+        <Header size="small" />
+        <article>
+          <div>
+            <h1 className="headingXl">{modifiedValues.title}</h1>
+            <span className="lightText">
+              <FormattedDate dateString={modifiedValues.date} />
+            </span>
           </div>
+          <div>
+            <InlineWysiwyg name="rawMarkdownBody" format="markdown">
+              <ReactMarkdown>{modifiedValues.rawMarkdownBody}</ReactMarkdown>
+            </InlineWysiwyg>
+          </div>
+        </article>
+        <div className="back-link">
+          <Link href="/">
+            <a>Back to home</a>
+          </Link>
         </div>
       </TemplateBase>
     </InlineForm>
