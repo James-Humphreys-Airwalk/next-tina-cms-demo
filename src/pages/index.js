@@ -28,6 +28,8 @@ export default function Home({
         name: "date",
         label: "Publication date",
         component: "date",
+        dateFormat: "YYYY-MM-DD",
+        timeFormat: false,
       },
     ],
     initialValues: initialHomePageData,
