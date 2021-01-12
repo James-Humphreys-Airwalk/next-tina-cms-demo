@@ -21,13 +21,7 @@ export default function App({ Component, pageProps }) {
     return new TinaCMS({
       enabled: !!pageProps.preview,
       apis: {
-        github: new GithubClient({
-          proxy: "/api/proxy-github",
-          authCallbackRoute: "/api/create-github-access-token",
-          clientId: process.env.GITHUB_CLIENT_ID,
-          baseRepoFullName: process.env.REPO_FULL_NAME, // e.g: tinacms/tinacms.org,
-          authScope: "repo", // normally defaults to 'public_repo'
-        }),
+        github,
       },
       media: new GithubMediaStore(github),
       sidebar: pageProps.preview,

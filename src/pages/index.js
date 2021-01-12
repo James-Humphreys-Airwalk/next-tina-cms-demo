@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import { getGithubPreviewProps, parseJson } from "next-tinacms-github";
 import { useForm, usePlugin, useCMS } from "tinacms";
 import { InlineForm, InlineTextarea } from "react-tinacms-inline";
 import { InlineWysiwyg } from "react-tinacms-editor";
@@ -100,14 +101,22 @@ export default function Home({
   );
 }
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
-  const homePageData = await getPostPageData("home", "page");
+export async function getStaticProps({ preview, previewData }) {
+  if (preview) {
+    return getGithubPreviewProps({
+      ...previewData,
+      fileRelativePath: "content/home.json",
+      parse: parseJson,
+    });
+  } else {
+    const allPostsData = getSortedPostsData();
+    const homePageData = await getPostPageData("home", "page");
 
-  return {
-    props: {
-      allPostsData,
-      homePageData,
-    },
-  };
+    return {
+      props: {
+        allPostsData,
+        homePageData,
+      },
+    };
+  }
 }
