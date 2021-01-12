@@ -1,10 +1,10 @@
 ---
-title: "Home"
-date: "2020-01-01"
+title: Home
+date: '2020-01-01'
 draft: false
-blogPostListTitle: "All Posts"
+blogPostListTitle: All Posts
 ---
-This is a simple boilerpate for Next.js powered websites using StoryBook for component driven development.
+This is a simple boilerplate for Next.js powered websites using StoryBook for component driven development.
 
 For more information on Next.js, check out the official [docs](https://nextjs.org/docs/getting-started)
 
